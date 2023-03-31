@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
 class MainWindow(QMainWindow):
     """Пример создания структуры с классам. Сперва создается основное окно, а потом
-    дополнительные кнопки на нем, текстбоксыы и остальное"""
+    дополнительные кнопки на нем, текстбоксыы и остальное """
     def __init__(self):
         super().__init__()
         self.initUI()
