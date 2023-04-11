@@ -66,11 +66,12 @@ dict_lot.update(dict_lot_information)
 dict_lot.update(lot_characteristics)
 dict_lot.update(lotbiddform)
 dict_lot.update(status)
-
+dict_lot.update({'link_lot': 'link', 'link_doc': 'link'})
 print(dict_lot)
 
 # Ссылка на документы
 """Изменить в предыдущем документе создания ссылок на доки файлов.
-Или впринципе создать отдельный метод на скачивание'Класс'. Который будет брать ссылку из класса лота приобразовывать её и скачивать"""
+Или впринципе создать отдельный метод на скачивание'Класс'. 
+Который будет брать ссылку из класса лота приобразовывать её и скачивать"""
 # https://torgi.gov.ru/new/public/lots/lot/22000010620000000068_3/(lotInfo:docs)?fromRec=false#lotInfoSection-docs
 # https://torgi.gov.ru/new/public/lots/lot/22000010620000000068_3/(lotInfo:info)?fromRec=false#lotInfoSection-info
