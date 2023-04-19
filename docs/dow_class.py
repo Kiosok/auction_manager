@@ -6,8 +6,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-class ElementDownloader:
-
+class LoaderDocs:
+    """Загрузчик документов. Принимает ссылку на документы и номер лота"""
     def __init__(self, url, number_lot):
         self.url = url
         self.download_dir = "/Users/bender/PycharmProjects/auction_manager/docs/" + str(number_lot)
@@ -24,12 +24,17 @@ class ElementDownloader:
         self.driver = webdriver.Chrome(options=self.options)
 
     def download_elements(self):
+        """Скачивает документы в нужную папку."""
         try:
             self.driver.get(self.url)
-            website_docs = self.driver.find_elements(By.CLASS_NAME, 'attachments-list__item__buttons__left-col')
+
+            # Поиск элементов файлов с помощью CSS_SELECTOR и клик по ним, чтобы скачать
+            website_docs = self.driver.find_elements(By.CSS_SELECTOR, ".word-break-caption")
             for dow_doc in website_docs:
+                time.sleep(1)
                 dow_doc.click()
-            time.sleep(5)
+                time.sleep(1)
+
             downloaded_files = os.listdir(self.download_dir)
 
             return downloaded_files
@@ -41,7 +46,7 @@ class ElementDownloader:
 
 
 # Пример использования класса
-downloader = ElementDownloader(
+downloader = LoaderDocs(
     "https://torgi.gov.ru/new/public/lots/lot/22000024510000000007_1/(lotInfo:docs)?fromRec=false#lotInfoSection-docs",
     "lot 655556№2")
 downloaded_files = downloader.download_elements()
