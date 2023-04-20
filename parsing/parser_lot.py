@@ -44,7 +44,6 @@ def replace_value_is_key(my_dict):
     return my_dict
 
 
-# меняем местами чтобы понимать что на обоих страницах работает
 suop = BeautifulSoup(html, 'lxml')
 
 # Отдельные элименты
@@ -66,8 +65,19 @@ dict_lot.update(dict_lot_information)
 dict_lot.update(lot_characteristics)
 dict_lot.update(lotbiddform)
 dict_lot.update(status)
-dict_lot.update({'link_lot': 'link', 'link_doc': 'link'})
+dict_lot.update({'link_lot': 'https://torgi.gov.ru/new/public/lots/lot/22000010620000000068_3/(lotInfo:info)?fromRec='
+                             'false#lotInfoSection-info',
+                 'link_doc': 'https://torgi.gov.ru/new/public/lots/lot/22000010620000000068_3/(lotInfo:docs)?fromRec='
+                             'false#lotInfoSection-docs'})
 print(dict_lot)
+
+from lot import lot
+s = lot.Lot(dict_lot)
+s.moving()
+from docs import d_cl
+dow = d_cl.Loader(s)
+dow.download_files()
+print(s.path_file)
 
 # Ссылка на документы
 """Изменить в предыдущем документе создания ссылок на доки файлов.

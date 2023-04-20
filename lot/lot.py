@@ -26,3 +26,11 @@ class Lot:
         self.type_of_use = dict_lot.get('Вид разрешённого использования земельного участка', None)
         self.application_form = dict_lot.get('Форма заявки', None)
         self.status = dict_lot.get('Статус', None)
+
+        self.link_doc = dict_lot.get('link_doc', None)
+        self.link_lot = dict_lot.get('link_lot', None)
+
+
+    def moving(self):
+        print('В работу')
+        pass

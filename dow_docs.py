@@ -1,64 +1,48 @@
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-import fake_useragent
 import os
 import time
-import lxml
-import pickle
-
-url = "https://torgi.gov.ru/new/public/lots/lot/22000024510000000007_1/(lotInfo:docs)?fromRec=false#lotInfoSection-docs"
-# user agent
-user = fake_useragent.UserAgent().random
-# объект опций
-options = webdriver.ChromeOptions()
-options.add_argument(f'"user-agent": {user}')
-
-# Загрузка файлов в назначенное место
-download_dir = '/Users/bender/PycharmProjects/auction_manager/docs/Bur'
-options.add_experimental_option('prefs', {
-    'download.default_directory': download_dir,
-    'download.prompt_for_download': False,
-    'download.directory_upgrade': True,
-    'safebrowsing.enabled': True
-})
-
-# работа в фоновом режиме
-#options.add_argument("--headless=new")
-# Отключения режима webdriver
-# options.add_argument("--disable-blink-features=AutomationControlled")
+import fake_useragent
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 
-# драйвер хрома и передаваемые в него аргументы
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+class Loader:
 
-try:
+    def __init__(self, lot):
+        self.url = lot.link_doc
+        self.download_dir = "/Users/bender/PycharmProjects/auction_manager/docs/" + str(lot.lot_number)
+        self.user = fake_useragent.UserAgent().random
+        self.options = webdriver.ChromeOptions()
+        self.options.add_argument(f'"user-agent": {self.user}')
+        self.options.add_experimental_option('prefs', {
+            'download.default_directory': self.download_dir,
+            'download.prompt_for_download': False,
+            'download.directory_upgrade': True,
+            'safebrowsing.enabled': True
+        })
+        self.options.add_argument("--headless=new")
+        self.driver = webdriver.Chrome(options=self.options)
 
-    driver.get(url)
+    def download_files(self):
+        """Загрузить файлы"""
+        try:
+            self.driver.get(self.url)
+            website_docs = self.driver.find_elements(By.CLASS_NAME, 'attachments-list__item__buttons__left-col')
+            for dow_doc in website_docs:
+                dow_doc.click()
+            time.sleep(5)
+            downloaded_files = os.listdir(self.download_dir)
 
-    time.sleep(5)
-
-    website_docs = driver.find_elements(By.CSS_SELECTOR, "body > app-root > app-layout > main > app-work-area > div > div > ng-sidebar-container > div > div:nth-child(1) > app-public-shell > div > div > app-lot-item > div > div > div:nth-child(3) > div.work-space > div > div.tab-form-content > app-lot-docs > div > div:nth-child(4) > app-hashed-attachments-list > div > div:nth-child(1) > div > div.file-name-with-info > div.attachments-list__item__buttons__left-col > app-button.attachments-list__item__buttons__name.align-label-left.display-flex.text-button-no-center.word-break-caption")
-    print(website_docs)
-
-    # Find all elements with a class of "example-selector"
-    # объеденить с изначальным поиском элементов чтобы они страховали друг друга
-    website_docs = driver.find_elements(By.CSS_SELECTOR, ".word-break-caption")
-    for dow_doc in website_docs:
-        time.sleep(1)
-        dow_doc.click()
-        time.sleep(1)
-
-
-    time.sleep(3)
-    print('Документы скачены')
-    downloaded_files = os.listdir(download_dir)
-    print(downloaded_files)
+            return downloaded_files
+        except Exception as ex:
+            print(ex)
+        finally:
+            self.driver.close()
+            self.driver.quit()
 
 
-except Exception as ex:
-
-    print(ex)
-finally:
-    driver.close()
-    driver.quit()
+# Пример использования класса
+# downloader = ElementDownloader(
+#     "https://torgi.gov.ru/new/public/lots/lot/22000024510000000007_1/(lotInfo:docs)?fromRec=false#lotInfoSection-docs",
+#     "lot 655556№2")
+# downloaded_files = downloader.download_elements()
+# print(len(downloaded_files))
