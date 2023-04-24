@@ -29,7 +29,18 @@ dow_lot.downloading_files()
 print(lot_55587.path)
 
 
+from bs4 import BeautifulSoup
 
+html = '<html><body><div class="foo">Hello, World!</div></body></html>'
+soup = BeautifulSoup(html, 'html.parser')
+
+try:
+    element = soup.find('div', {'class': 'bar'})
+    if element is None:
+        element = soup.find('div', {'class': 'foo'})
+    print(element.text)
+except AttributeError:
+    print('Element not found')
 
 
 

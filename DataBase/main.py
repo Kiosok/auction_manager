@@ -18,7 +18,7 @@ class Lot(Base):
     subject_property_location = Column(String)
     start_date = Column(String)
     closing_date = Column(String)
-    status = Column(String, primary_key=True)
+    status = Column(String)
 
     def __init__(self, dict_lot):
         self.lot_number = dict_lot.get('Извещение, лот', None)
