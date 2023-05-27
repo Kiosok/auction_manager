@@ -1,13 +1,9 @@
 from PyQt6.QtWidgets import *
 from widget_btn_status import BtnS
-from widget_order import WidgetFullOrder
-from widget_order import WidgetSmallOrder
-
-from smoll_ui import Ui_Form
+from test_2 import *
 
 
 class MainWindow(QMainWindow):
-    """Главное окно"""
 
     def __init__(self):
         super().__init__()
@@ -23,13 +19,9 @@ class MainWindow(QMainWindow):
         widget_small_orders = QWidget()
         vbox = QVBoxLayout()
 
-        small_order = WidgetSmallOrder()
-        small_order_1 = WidgetSmallOrder()
-        small_order_2 = WidgetSmallOrder()
+        small_order = WidgetsSmallOrder()
 
         vbox.addWidget(small_order)
-        vbox.addWidget(small_order_1)
-        vbox.addWidget(small_order_2)
 
         widget_small_orders.setLayout(vbox)
 
@@ -38,24 +30,31 @@ class MainWindow(QMainWindow):
 
         """Правая часть приложения"""
         # Кнопки статусов и скрол панель для просмотра развернутого лота
-        widget_main_right = QWidget()
-        layout_main_right = QVBoxLayout()
-        btn_status = BtnS()
-        # Слот для FullWidget
-        full_order = WidgetFullOrder()
-        layout_main_right.addWidget(btn_status)
-        layout_main_right.addWidget(full_order)
-        widget_main_right.setLayout(layout_main_right)
+        self.widget_main_right = QWidget()
+        self.layout_main_right = QVBoxLayout()
+        # Размещение Full Виджета
+        self.full_order = FullWidget()
+        self.full_order.-*
+
 
         """Нижний слой связывающий обе части"""
         widget_main = QWidget()
-        layout_main = QHBoxLayout()
-        layout_main.addWidget(widget_main_left)
-        layout_main.addWidget(widget_main_right)
-        widget_main.setLayout(layout_main)
+        self.layout_main = QHBoxLayout()
+        self.layout_main.addWidget(widget_main_left)
+
+        widget_main.setLayout(self.layout_main)
 
 
         self.setCentralWidget(widget_main)
+
+    def add_full_order(self, e):
+
+
+        self.layout_main_right.addWidget(self.full_order)
+        self.widget_main_right.setLayout(self.layout_main_right)
+        self.layout_main.addWidget(self.widget_main_right)
+
+
 
 
 if __name__ == '__main__':

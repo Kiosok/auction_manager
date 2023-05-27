@@ -2,11 +2,11 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 
 
-class WidgetsSmallOrder(QWidget):
+class WidgetSmallOrder(QWidget):
     """Предоставляет краткую информацию о лоте и позволяет проводить с ним манипуляции"""
     def __init__(self):
         super().__init__()
-        # Инициализируем label
+        # Инициализируем label для вывода данных.
         self.label_application_form = QLabel("Электронный аукцион")
         self.label_subject_of_bidding = QLabel("Земельный участок кадастр\nномер 42:07:0110001:385,\nплощадью 3465005 кв.м.")
         self.label_land_area_name = QLabel("Площадь земельного участка:")
@@ -24,24 +24,24 @@ class WidgetsSmallOrder(QWidget):
         self.label_closing_date = QLabel("08.06.2023 17:00 (MCK+4)")
 
         # Располагаем label по сетке
-        layout_small_order = QGridLayout()
-        layout_small_order.addWidget(self.label_application_form, 0, 0, 1, 1)
-        layout_small_order.addWidget(self.label_subject_of_bidding, 1, 0, 3, 1)
-        layout_small_order.addWidget(self.label_land_area_name, 4, 0, 1, 1)
-        layout_small_order.addWidget(self.label_land_area, 5, 0, 1, 1)
-        layout_small_order.addWidget(self.label_e_platform_name, 6, 0, 1, 1)
-        layout_small_order.addWidget(self.label_e_platform, 7, 0, 1, 1)
+        self.layout_small_order = QGridLayout()
+        self.layout_small_order.addWidget(self.label_application_form, 0, 0, 1, 1)
+        self.layout_small_order.addWidget(self.label_subject_of_bidding, 1, 0, 3, 1)
+        self.layout_small_order.addWidget(self.label_land_area_name, 4, 0, 1, 1)
+        self.layout_small_order.addWidget(self.label_land_area, 5, 0, 1, 1)
+        self.layout_small_order.addWidget(self.label_e_platform_name, 6, 0, 1, 1)
+        self.layout_small_order.addWidget(self.label_e_platform, 7, 0, 1, 1)
 
-        layout_small_order.addWidget(self.label_status, 0, 1, 1, 1)
-        layout_small_order.addWidget(self.label_trade_type, 1, 1, 1, 1)
-        layout_small_order.addWidget(self.label_initial_price_name, 2, 1, 1, 1)
-        layout_small_order.addWidget(self.label_initial_price, 3, 1, 1, 1)
-        layout_small_order.addWidget(self.label_cadastral_number_name, 4, 1, 1, 1)
-        layout_small_order.addWidget(self.label_cadastral_number, 5, 1, 1, 1)
-        layout_small_order.addWidget(self.label_closing_date_name, 6, 1, 1, 1)
-        layout_small_order.addWidget(self.label_closing_date, 7, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_status, 0, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_trade_type, 1, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_initial_price_name, 2, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_initial_price, 3, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_cadastral_number_name, 4, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_cadastral_number, 5, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_closing_date_name, 6, 1, 1, 1)
+        self.layout_small_order.addWidget(self.label_closing_date, 7, 1, 1, 1)
 
-        self.setLayout(layout_small_order)
+        self.setLayout(self.layout_small_order)
 
         # Форматируем label, шрифт/размер
         self.label_application_form.setStyleSheet("color: rgb(60, 54, 255); background-color: rgba(255, 255, 255, 0);")
@@ -86,11 +86,21 @@ class WidgetsSmallOrder(QWidget):
         print(f'Вы нажали на SmallWidget {e.button()}')
 
 
-class WidgetFullOrder(WidgetsSmallOrder):
+class WidgetFullOrder(WidgetSmallOrder):
     """Предоставляет всю информацию о лоте и позволяет проводить с ним манипуляции"""
     def __init__(self):
         super().__init__()
-        pass
+        Wtest = QWidget()
+        Vbox = QVBoxLayout()
+        Label = QLabel('TESsdfdsfdsfsdfdsfsdfsdfsdffffffffffffffffffffffffffffffffT')
+        Vbox.addWidget(Label)
+        Wtest.setLayout(Vbox)
+        self.layout_small_order.addWidget(Wtest, 8, 0, 1, 2)
+
+
+
+
+
 
 
 if __name__ == '__main__':
