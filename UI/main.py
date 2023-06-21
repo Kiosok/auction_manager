@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
 
         super().__init__()
         # Размер начального окна
-        self.setMinimumSize(900, 1200)
+        self.setMinimumSize(900, 900)
 
         """Левая часть приложения"""
         # Скрол панель и её расположение.
