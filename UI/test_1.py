@@ -1,64 +1,28 @@
-from PyQt6.QtWidgets import *
-from widget_btn_status import BtnS
-from test_2 import *
+from PyQt6.QtCore import QObject, pyqtSignal
+from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QApplication
 
 
-class MainWindow(QMainWindow):
+class Signal(QWidget):
+    my_signal = pyqtSignal()
 
     def __init__(self):
         super().__init__()
 
-        """Левая часть приложения"""
-        # Скрол панель и её расположение.
-        scroll_main_left = QScrollArea()
-        layout_main_left = QVBoxLayout()
-        layout_main_left.addWidget(scroll_main_left)
-        widget_main_left = QWidget()
-        widget_main_left.setLayout(layout_main_left)
-        # Вложение в скрол панель
-        widget_small_orders = QWidget()
+        label = QLabel('Нажми и получишь результат')
         vbox = QVBoxLayout()
-
-        small_order = WidgetsSmallOrder()
-
-        vbox.addWidget(small_order)
-
-        widget_small_orders.setLayout(vbox)
-
-        scroll_main_left.setWidget(widget_small_orders)
+        vbox.addWidget(label)
+        self.setLayout(vbox)
 
 
-        """Правая часть приложения"""
-        # Кнопки статусов и скрол панель для просмотра развернутого лота
-        self.widget_main_right = QWidget()
-        self.layout_main_right = QVBoxLayout()
-        # Размещение Full Виджета
-        self.full_order = FullWidget()
-        self.full_order.-*
 
 
-        """Нижний слой связывающий обе части"""
-        widget_main = QWidget()
-        self.layout_main = QHBoxLayout()
-        self.layout_main.addWidget(widget_main_left)
-
-        widget_main.setLayout(self.layout_main)
-
-
-        self.setCentralWidget(widget_main)
-
-    def add_full_order(self, e):
-
-
-        self.layout_main_right.addWidget(self.full_order)
-        self.widget_main_right.setLayout(self.layout_main_right)
-        self.layout_main.addWidget(self.widget_main_right)
-
-
+    def mouseReleaseEvent(self, e):
+        print('Test one')
+        self.my_signal.emit()
 
 
 if __name__ == '__main__':
     app = QApplication([])
-    window = MainWindow()
+    window = Signal()
     window.show()
     app.exec()
