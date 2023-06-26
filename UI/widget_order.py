@@ -131,15 +131,13 @@ class WidgetFullOrder(WidgetSmallOrder):
         marker_doc = QLabel("Место для документов")
         marker_doc.setStyleSheet("background-color: rgb(185, 236, 87);")
 
-        marker_doc.setMinimumSize(150, 150)
-        self.layout_small_order.addWidget(marker_doc, 9, 0, 3, 1)
+        self.layout_small_order.addWidget(marker_doc, 9, 0, 1, 1)
 
         # Карта
         marker_map = QLabel("              Карта")
         marker_map.setStyleSheet("background-color: rgb(175, 55, 75);")
 
-        marker_map.setMinimumSize(150, 150)
-        self.layout_small_order.addWidget(marker_map, 9, 1, 3, 1)
+        self.layout_small_order.addWidget(marker_map, 9, 1, 1, 1)
 
         # Сведения о лоте надпись
         name_information_lot = QLabel('Сведенья о лоте')

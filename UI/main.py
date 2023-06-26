@@ -4,7 +4,7 @@ from widget_order import WidgetFullOrder
 from widget_order import WidgetSmallOrder
 
 from smoll_ui import Ui_Form
-
+# test
 
 class MainWindow(QMainWindow):
     """Главное окно"""
@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
 
         super().__init__()
         # Размер начального окна
-        self.setMinimumSize(900, 900)
+        self.setMinimumSize(1050, 500)
 
         """Левая часть приложения"""
         # Скрол панель и её расположение.
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         # Вложение в скрол панель
         widget_full_orders = QWidget()
         # Задаю минимальный размер выджета
-        widget_full_orders.setMinimumSize(600, 600)
+        widget_full_orders.setMinimumSize(300, 800)
 
         self.vbox_r = QVBoxLayout()
         btn_status = BtnS()
@@ -71,7 +71,6 @@ class MainWindow(QMainWindow):
         small_order_1.signal_mouse.connect(lambda: self.add_full_widget())
 
     def add_full_widget(self):
-
         print('Виджет добален')
         full_order = WidgetFullOrder()
         self.vbox_r.addWidget(full_order)
