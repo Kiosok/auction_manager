@@ -22,6 +22,11 @@ class BtnS(QWidget):
 
         self.setLayout(btn_layout)
 
+        def on_btn_new_click():
+            print('Кнопка нажата')
+
+        btn_new.clicked.connect(on_btn_new_click)
+
 
 if __name__ == '__main__':
     app = QApplication([])
