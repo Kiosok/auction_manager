@@ -33,10 +33,9 @@ try:
     driver.get(url)
     driver.implicitly_wait(10)
 
-    login_gov = driver.find_element(By.XPATH,
-                                     "/html/body/app-root/app-layout/main/app-work-area/div/div/ng-sidebar"
-                                     "-container/div/div[1]/app-public-shell/div/div/app-public-main/div["
-                                     "1]/app-main-header/div/div/div/div[3]/app-login/app-button/button/span[2]")
+    login_gov = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/app-work-area/div/div/div["
+                                              "1]/app-public-shell/div/div/app-public-main/div["
+                                              "1]/app-main-header/div/div/div/div[3]/app-login/app-button")
     login_gov.click()
 
     login_gos = driver.find_element(By.ID, 'login')

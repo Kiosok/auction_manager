@@ -71,7 +71,5 @@ class GovScraper:
             self.driver.close()
             self.driver.quit()
 
-
-if __name__ == '__main__':
-    scrapy = GovScraper()
-    scrapy.scrape_links()
+scrapy = GovScraper()
+pprint(scrapy.scrape_links())

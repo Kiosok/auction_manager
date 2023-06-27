@@ -45,7 +45,9 @@ class WidgetOrder(QWidget):
         self.recipient = QLabel('Получатель')
         self.purpose_of_payment = QLabel('Назначение платежа')
         self.type_of_use = QLabel('Обеспечение сельскохозяйственного производства')
-        self.link_lot = QLabel('link_lot')
+
+        self.link_lot = QLabel('https://torgi.gov.ru/new/public/lots/lot/22000010620000000167_1/(lotInfo:info)?fromRec=false')
+        self.condition = QLabel('Новые')
 
         # Располагаем label по сетке
         self.layout_small_order = QGridLayout()
@@ -214,6 +216,11 @@ class WidgetFullOrder(WidgetOrder):
         self.layout_small_order.addWidget(self.type_of_contract, 34, 0, 1, 2)
 
         self.layout_small_order.addWidget(label_features_lot, 35, 0, 1, 2)
+
+        # ссылка на офф. сайт
+        name_link = QLabel(f'<a href="{self.link_lot.text()}">Ссылка на офф. сайт</a>')
+        name_link.setOpenExternalLinks(True)
+        self.layout_small_order.addWidget(name_link)
 
 
 if __name__ == '__main__':

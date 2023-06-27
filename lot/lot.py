@@ -32,8 +32,9 @@ class Lot(Base):
     land_area = Column(String)
     type_of_use = Column(String)
     application_form = Column(String)
-
     status = Column(String)
+
+    condition = Column(String)
     link_lot = Column(String)
 
     def __init__(self, dict_lot):
@@ -61,8 +62,9 @@ class Lot(Base):
         self.land_area = dict_lot.get('Площадь земельного участка', 'None')
         self.type_of_use = dict_lot.get('Вид разрешённого использования земельного участка', 'None')
         self.application_form = dict_lot.get('Форма заявки', 'None')
-
         self.status = dict_lot.get('Статус', 'None')
+
+        self.condition = dict_lot.get('Новые', 'Новые')
         self.link_lot = dict_lot.get('link_lot', 'None')
 
     def moving(self):

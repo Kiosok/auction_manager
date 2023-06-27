@@ -88,6 +88,7 @@ def parser_link_lot(url):
     dict_lot.update(lotbiddform)
     dict_lot.update(status)
     dict_lot.update({'link_lot': url})
+    dict_lot.update({'condition': 'Новые'})
     print(dict_lot)
     return dict_lot
 
