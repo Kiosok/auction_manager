@@ -3,7 +3,7 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import pyqtSignal
 
 
-class WidgetSmallOrder(QWidget):
+class WidgetOrder(QWidget):
     """Предоставляет краткую информацию о лоте и позволяет проводить с ним манипуляции"""
     signal_mouse = pyqtSignal()
 
@@ -32,7 +32,7 @@ class WidgetSmallOrder(QWidget):
 
         self.lot_number = QLabel('Извещение, лот')
         self.subject_property_location = QLabel('Ханты-Мансийский автономный округ')
-        self.property_location = QLabel('АО Ханты-Мансийский Автономный округ - Югра, \nг.о. Нягань, г. Нягань, ул Сибирская, дом 40 к. 1')
+        self.property_location = QLabel('АО Ханты-Мансийский Автономный округ - Югра, г.о. Нягань, г. Нягань, ул Сибирская, дом 40 к. 1')
         self.start_date = QLabel('Дата и время начала подачи заявок')
         self.date_of_bidding = QLabel('10.08.2023 14:00 (МСК+2)')
         self.object_category = QLabel('Автобусы')
@@ -117,7 +117,7 @@ class WidgetSmallOrder(QWidget):
         print(f'Вы нажали на SmallWidget {e.button()}')
 
 
-class WidgetFullOrder(WidgetSmallOrder):
+class WidgetFullOrder(WidgetOrder):
     """Предоставляет всю информацию о лоте и позволяет проводить с ним манипуляции"""
     def __init__(self):
         super().__init__()
@@ -147,62 +147,62 @@ class WidgetFullOrder(WidgetSmallOrder):
         # Предмет торгов
         name_lot_description = QLabel('Предмет торгов (наименование лота)')
         name_lot_description.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_lot_description, 13, 0, 1, 1)
-        self.layout_small_order.addWidget(self.lot_description, 14, 0, 1, 1)
+        self.layout_small_order.addWidget(name_lot_description, 13, 0, 1, 2)
+        self.layout_small_order.addWidget(self.lot_description, 14, 0, 1, 2)
 
         # Субъект местонахождения имущества
         name_subject_property_location = QLabel('Субъект местонахождения имущества')
         name_subject_property_location.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_subject_property_location, 15, 0, 1, 1)
-        self.layout_small_order.addWidget(self.subject_property_location, 16, 0, 1, 1)
+        self.layout_small_order.addWidget(name_subject_property_location, 15, 0, 1, 2)
+        self.layout_small_order.addWidget(self.subject_property_location, 16, 0, 1, 2)
 
         # Местонахождение имущества
         name_property_location = QLabel('Местонахождение имущества')
         name_property_location.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_property_location, 17, 0, 1, 1)
-        self.layout_small_order.addWidget(self.property_location, 18, 0, 1, 1)
+        self.layout_small_order.addWidget(name_property_location, 17, 0, 1, 2)
+        self.layout_small_order.addWidget(self.property_location, 18, 0, 1, 2)
 
         # Категория объекта
         name_object_category = QLabel('Категория объекта')
         name_object_category.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_object_category, 19, 0, 1, 1)
-        self.layout_small_order.addWidget(self.object_category, 20, 0, 1, 1)
+        self.layout_small_order.addWidget(name_object_category, 19, 0, 1, 2)
+        self.layout_small_order.addWidget(self.object_category, 20, 0, 1, 2)
 
         # Форма собственности
         name_form_of_ownership = QLabel('Форма собственности')
         name_form_of_ownership.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_form_of_ownership, 21, 0, 1, 1)
-        self.layout_small_order.addWidget(self.form_of_ownership, 22, 0, 1, 1)
+        self.layout_small_order.addWidget(name_form_of_ownership, 21, 0, 1, 2)
+        self.layout_small_order.addWidget(self.form_of_ownership, 22, 0, 1, 2)
 
         # Дата проведения торгов
         name_date_of_bidding = QLabel('Дата проведения торгов')
         name_date_of_bidding.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_date_of_bidding, 23, 0, 1, 1)
-        self.layout_small_order.addWidget(self.date_of_bidding, 24, 0, 1, 1)
+        self.layout_small_order.addWidget(name_date_of_bidding, 23, 0, 1, 2)
+        self.layout_small_order.addWidget(self.date_of_bidding, 24, 0, 1, 2)
 
         # Срок заключения договора
         name_term_of_agreement = QLabel('Срок заключения договора')
         name_term_of_agreement.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_term_of_agreement, 25, 0, 1, 1)
-        self.layout_small_order.addWidget(self.term_of_agreement, 26, 0, 1, 1)
+        self.layout_small_order.addWidget(name_term_of_agreement, 25, 0, 1, 2)
+        self.layout_small_order.addWidget(self.term_of_agreement, 26, 0, 1, 2)
 
         # Вид договора
         name_type_of_contract = QLabel('Вид договора')
         name_type_of_contract.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_type_of_contract, 27, 0, 1, 1)
-        self.layout_small_order.addWidget(self.type_of_contract, 28, 0, 1, 1)
+        self.layout_small_order.addWidget(name_type_of_contract, 27, 0, 1, 2)
+        self.layout_small_order.addWidget(self.type_of_contract, 28, 0, 1, 2)
 
         # Шаг аукциона
         name_auction_step = QLabel('Шаг аукциона')
         name_auction_step.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_auction_step, 29, 0, 1, 1)
-        self.layout_small_order.addWidget(self.auction_step, 30, 0, 1, 1)
+        self.layout_small_order.addWidget(name_auction_step, 29, 0, 1, 2)
+        self.layout_small_order.addWidget(self.auction_step, 30, 0, 1, 2)
 
         # Размер задатка
         name_deposit_amount = QLabel('Размер задатка')
         name_deposit_amount.setFont(self.font_14)
-        self.layout_small_order.addWidget(name_deposit_amount)
-        self.layout_small_order.addWidget(self.deposit_amount)
+        self.layout_small_order.addWidget(name_deposit_amount, 31, 0, 1, 2)
+        self.layout_small_order.addWidget(self.deposit_amount, 32, 0, 1, 2)
 
         # Характеристики лота
         label_features_lot = QLabel('Характеристики лота')
@@ -210,10 +210,10 @@ class WidgetFullOrder(WidgetSmallOrder):
 
         # Вид разрешённого использования земельного участка
         name_type_of_contract = QLabel('Вид разрешённого использования земельного участка')
-        self.layout_small_order.addWidget(name_type_of_contract)
-        self.layout_small_order.addWidget(self.type_of_contract)
+        self.layout_small_order.addWidget(name_type_of_contract, 33, 0, 1, 2)
+        self.layout_small_order.addWidget(self.type_of_contract, 34, 0, 1, 2)
 
-        self.layout_small_order.addWidget(label_features_lot)
+        self.layout_small_order.addWidget(label_features_lot, 35, 0, 1, 2)
 
 
 if __name__ == '__main__':

@@ -1,10 +1,8 @@
 from PyQt6.QtWidgets import *
 from widget_btn_status import BtnS
 from widget_order import WidgetFullOrder
-from widget_order import WidgetSmallOrder
+from widget_order import WidgetOrder
 
-from smoll_ui import Ui_Form
-# test
 
 class MainWindow(QMainWindow):
     """Главное окно"""
@@ -13,7 +11,7 @@ class MainWindow(QMainWindow):
 
         super().__init__()
         # Размер начального окна
-        self.setMinimumSize(1050, 500)
+        self.setMinimumSize(900, 300)
 
         """Левая часть приложения"""
         # Скрол панель и её расположение.
@@ -26,9 +24,9 @@ class MainWindow(QMainWindow):
         widget_small_orders = QWidget()
         vbox = QVBoxLayout()
 
-        small_order = WidgetSmallOrder()
-        small_order_1 = WidgetSmallOrder()
-        small_order_2 = WidgetSmallOrder()
+        small_order = WidgetOrder()
+        small_order_1 = WidgetOrder()
+        small_order_2 = WidgetOrder()
 
         vbox.addWidget(small_order)
         vbox.addWidget(small_order_1)
@@ -45,35 +43,45 @@ class MainWindow(QMainWindow):
         layout_main_rigt.addWidget(scroll_main_rigt)
         widget_main_rigt = QWidget()
         widget_main_rigt.setLayout(layout_main_rigt)
+
         # Вложение в скрол панель
         widget_full_orders = QWidget()
-        # Задаю минимальный размер выджета
-        widget_full_orders.setMinimumSize(300, 800)
-
+        # Задаю минимальный размер виджета
+        widget_full_orders.setMinimumSize(600, 800)
+        # в self.vbox можно вложить любой виджет что нужен в правом скроле
         self.vbox_r = QVBoxLayout()
-        btn_status = BtnS()
-        btn_status.setMaximumHeight(44)
-        self.vbox_r.addWidget(btn_status)
         widget_full_orders.setLayout(self.vbox_r)
         scroll_main_rigt.setWidget(widget_full_orders)
 
         """Нижний слой связывающий обе части"""
+        btn_status = BtnS()
+
         widget_main = QWidget()
-        layout_main = QHBoxLayout()
+        layout_main = QGridLayout()
+        layout_main.addWidget(btn_status, 1, 0, 1, 2)
         layout_main.addWidget(widget_main_left)
         layout_main.addWidget(widget_main_rigt)
         widget_main.setLayout(layout_main)
 
         self.setCentralWidget(widget_main)
 
-        # Сигнал с widget order. Иполняется после клика по нему.
-        small_order.signal_mouse.connect(lambda :self.add_full_widget())
+        # Сигнал с widget order. Исполняется после клика по нему.
+        small_order.signal_mouse.connect(lambda: self.add_full_widget())
         small_order_1.signal_mouse.connect(lambda: self.add_full_widget())
 
+    def clear_layout(self, layout):
+        """Очистка layout от всех виджетов """
+        while layout.count():
+            widget = layout.takeAt(0).widget()
+            widget.deleteLater()
+
     def add_full_widget(self):
-        print('Виджет добален')
+        self.clear_layout(self.vbox_r)
+
+        print('Виджет добавлен')
         full_order = WidgetFullOrder()
         self.vbox_r.addWidget(full_order)
+
 
 
 if __name__ == '__main__':
