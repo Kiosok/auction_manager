@@ -7,84 +7,122 @@ class WidgetOrder(QWidget):
     """Предоставляет краткую информацию о лоте и позволяет проводить с ним манипуляции"""
     signal_mouse = pyqtSignal()
 
-    def __init__(self):
+    def __init__(self, dict_lot):
 
         super().__init__()
         # Инициализируем label для вывода small widget.
-        self.label_application_form = QLabel('Электронная площадка')
-        self.label_subject_of_bidding = QLabel("Земельный участок кадастр\nномер 42:07:0110001:385,\nплощадью 3465005 кв.м.")
-        self.label_land_area_name = QLabel("Площадь земельного участка:")
-        self.label_land_area = QLabel("3 465 005 кв.м.")
-        self.label_e_platform_name = QLabel("Электронная площадка")
-        self.label_e_platform = QLabel("РТС-тендер")
 
-        self.label_status = QLabel("Прием заявок")
-        self.label_trade_type = QLabel("Аренда и продажа земельных участков")
+        lot_number = dict_lot.get('lot_number', 'None')
+        trade_type = dict_lot.get('trade_type', 'None')
+        e_platform = dict_lot.get('e_platform', 'None')
+        subject_property_location = dict_lot.get('subject_property_location', 'None')
+        start_date = dict_lot.get('start_date', 'None')
+        closing_date = dict_lot.get('closing_date', 'None')
+        date_of_bidding = dict_lot.get('date_of_bidding', 'None')
+        subject_of_bidding = dict_lot.get('subject_of_bidding', 'None')
+        lot_description = dict_lot.get('lot_description', 'None')
+        property_location = dict_lot.get('property_location', 'None')
+        object_category = dict_lot.get('object_category', 'None')
+        form_of_ownership = dict_lot.get('form_of_ownership', 'None')
+        term_of_agreement = dict_lot.get('term_of_agreement', 'None')
+        type_of_contract = dict_lot.get('type_of_contract', 'None')
+        lease_term = dict_lot.get('lease_term', 'None')
+        initial_price = dict_lot.get('initial_price', 'None')
+        auction_step = dict_lot.get('auction_step', 'None')
+        deposit_amount = dict_lot.get('deposit_amount', 'None')
+        recipient = dict_lot.get('recipient', 'None')
+        purpose_of_payment = dict_lot.get('purpose_of_payment', 'None')
+        cadastral_number = dict_lot.get('cadastral_number', 'None')
+        land_area = dict_lot.get('land_area', 'None')
+        type_of_use = dict_lot.get('type_of_use', 'None')
+        application_form = dict_lot.get('application_form', 'None')
+        status = dict_lot.get('status', 'None')
+
+        condition = dict_lot.get('condition', 'Новые')
+        link_lot = dict_lot.get('link_lot', 'None')
+
+        # Переменные small widget
+
+        self.application_form = QLabel(application_form)
+        # Номер лота
+        self.subject_of_bidding = QLabel(lot_number)
+        self.label_land_area_name = QLabel("Площадь земельного участка:")
+        self.land_area = QLabel(land_area)
+        self.label_e_platform_name = QLabel("Электронная площадка")
+        self.e_platform = QLabel(e_platform)
+
+        self.status = QLabel(status)
+        self.trade_type = QLabel(trade_type)
         self.label_initial_price_name = QLabel("Начальная цена")
-        self.label_initial_price = QLabel("255 717, 37 Р")
+        self.initial_price = QLabel(initial_price)
         self.label_cadastral_number_name = QLabel("Кадастровый номер земельного участка:")
-        self.label_cadastral_number = QLabel("42:07:0110001:385")
+        self.cadastral_number = QLabel(cadastral_number)
         self.label_closing_date_name = QLabel("Дата и время окончания подачи заявок")
-        self.label_closing_date = QLabel("08.06.2023 17:00 (MCK+4)")
+        self.closing_date = QLabel(closing_date)
 
         # Переменные full widget
-        self.lot_description = QLabel('земельный участок  в кадастровом квартале 42:09:2603001')
 
-        self.lot_number = QLabel('Извещение, лот')
-        self.subject_property_location = QLabel('Ханты-Мансийский автономный округ')
-        self.property_location = QLabel('АО Ханты-Мансийский Автономный округ - Югра, г.о. Нягань, г. Нягань, ул Сибирская, дом 40 к. 1')
-        self.start_date = QLabel('Дата и время начала подачи заявок')
-        self.date_of_bidding = QLabel('10.08.2023 14:00 (МСК+2)')
-        self.object_category = QLabel('Автобусы')
-        self.form_of_ownership = QLabel('Муниципальная собственность')
-        self.term_of_agreement = QLabel('в течение 5 рабочих дней с даты проведения продажи')
-        self.type_of_contract = QLabel('договор аренды земельного участка')
-        self.lease_term = QLabel('Срок аренды')
-        self.auction_step = QLabel('10 974,93 ₽ (3,00 %)')
-        self.deposit_amount = QLabel('Размер задатка')
-        self.recipient = QLabel('Получатель')
-        self.purpose_of_payment = QLabel('Назначение платежа')
-        self.type_of_use = QLabel('Обеспечение сельскохозяйственного производства')
+        # Временный ограничитель длины строки
+        import textwrap
+        wrapped = textwrap.wrap(lot_description, width=80)
+        lot_description = '\n'.join(wrapped)
+        self.lot_description = QLabel(lot_description)
 
-        self.link_lot = QLabel('https://torgi.gov.ru/new/public/lots/lot/22000010620000000167_1/(lotInfo:info)?fromRec=false')
-        self.condition = QLabel('Новые')
+        self.lot_number = QLabel(lot_number)
+        self.subject_property_location = QLabel(subject_property_location)
+        self.property_location = QLabel(property_location)
+        self.start_date = QLabel(start_date)
+        self.date_of_bidding = QLabel(date_of_bidding)
+        self.object_category = QLabel(object_category)
+        self.form_of_ownership = QLabel(form_of_ownership)
+        self.term_of_agreement = QLabel(term_of_agreement)
+        self.type_of_contract = QLabel(type_of_contract)
+        self.lease_term = QLabel(lease_term)
+        self.auction_step = QLabel(auction_step)
+        self.deposit_amount = QLabel(deposit_amount)
+        self.recipient = QLabel(recipient)
+        self.purpose_of_payment = QLabel(purpose_of_payment)
+        self.type_of_use = QLabel(type_of_use)
+
+        self.link_lot = QLabel(link_lot)
+        self.condition = QLabel(condition)
 
         # Располагаем label по сетке
         self.layout_small_order = QGridLayout()
-        self.layout_small_order.addWidget(self.label_application_form, 0, 0, 1, 1)
-        self.layout_small_order.addWidget(self.label_subject_of_bidding, 1, 0, 3, 1)
+        self.layout_small_order.addWidget(self.application_form, 0, 0, 1, 1)
+        self.layout_small_order.addWidget(self.subject_of_bidding, 1, 0, 3, 1)
         self.layout_small_order.addWidget(self.label_land_area_name, 4, 0, 1, 1)
-        self.layout_small_order.addWidget(self.label_land_area, 5, 0, 1, 1)
+        self.layout_small_order.addWidget(self.land_area, 5, 0, 1, 1)
         self.layout_small_order.addWidget(self.label_e_platform_name, 6, 0, 1, 1)
-        self.layout_small_order.addWidget(self.label_e_platform, 7, 0, 1, 1)
+        self.layout_small_order.addWidget(self.e_platform, 7, 0, 1, 1)
 
-        self.layout_small_order.addWidget(self.label_status, 0, 1, 1, 1)
-        self.layout_small_order.addWidget(self.label_trade_type, 1, 1, 1, 1)
+        self.layout_small_order.addWidget(self.status, 0, 1, 1, 1)
+        self.layout_small_order.addWidget(self.trade_type, 1, 1, 1, 1)
         self.layout_small_order.addWidget(self.label_initial_price_name, 2, 1, 1, 1)
-        self.layout_small_order.addWidget(self.label_initial_price, 3, 1, 1, 1)
+        self.layout_small_order.addWidget(self.initial_price, 3, 1, 1, 1)
         self.layout_small_order.addWidget(self.label_cadastral_number_name, 4, 1, 1, 1)
-        self.layout_small_order.addWidget(self.label_cadastral_number, 5, 1, 1, 1)
+        self.layout_small_order.addWidget(self.cadastral_number, 5, 1, 1, 1)
         self.layout_small_order.addWidget(self.label_closing_date_name, 6, 1, 1, 1)
-        self.layout_small_order.addWidget(self.label_closing_date, 7, 1, 1, 1)
+        self.layout_small_order.addWidget(self.closing_date, 7, 1, 1, 1)
 
         self.setLayout(self.layout_small_order)
 
         # Форматируем label, шрифт/размер
-        self.label_application_form.setStyleSheet("color: rgb(60, 54, 255); background-color: rgba(255, 255, 255, 0);")
-        self.label_subject_of_bidding.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.application_form.setStyleSheet("color: rgb(60, 54, 255); background-color: rgba(255, 255, 255, 0);")
+        self.subject_of_bidding.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.label_land_area_name.setStyleSheet("color: rgb(108, 108, 108); background-color: rgba(255, 255, 255, 0);")
-        self.label_land_area.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.land_area.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.label_e_platform_name.setStyleSheet("color: rgb(108, 108, 108); background-color: rgba(255, 255, 255, 0);")
-        self.label_e_platform.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.e_platform.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
 
-        self.label_status.setStyleSheet("background-color: rgba(255, 255, 255, 0); color: rgb(60, 54, 255);")
-        self.label_trade_type.setStyleSheet("color: rgb(108, 108, 108); background-color: rgba(255, 255, 255, 0);")
+        self.status.setStyleSheet("background-color: rgba(255, 255, 255, 0); color: rgb(60, 54, 255);")
+        self.trade_type.setStyleSheet("color: rgb(108, 108, 108); background-color: rgba(255, 255, 255, 0);")
         self.label_initial_price_name.setStyleSheet("color: rgb(108,108,108); background-color: rgba(255,255,255,0);")
-        self.label_initial_price.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.initial_price.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.label_cadastral_number_name.setStyleSheet("color: rgb(108,108,108);background-color: rgba(255,255,255,0);")
-        self.label_cadastral_number.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.cadastral_number.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.label_closing_date_name.setStyleSheet("color: rgb(108,108,108); background-color: rgba(255,255,255,0);")
-        self.label_closing_date.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.closing_date.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
 
         # Размеры для шрифтов
         font_7 = QFont()
@@ -97,21 +135,21 @@ class WidgetOrder(QWidget):
         self.font_12 = QFont()
         self.font_12.setPointSize(12)
 
-        self.label_application_form.setFont(font_7)
-        self.label_subject_of_bidding.setFont(font_9)
+        self.application_form.setFont(font_7)
+        self.subject_of_bidding.setFont(font_9)
         self.label_land_area_name.setFont(font_7)
-        self.label_land_area.setFont(font_9)
+        self.land_area.setFont(font_9)
         self.label_e_platform_name.setFont(font_7)
-        self.label_e_platform.setFont(font_9)
+        self.e_platform.setFont(font_9)
 
-        self.label_status.setFont(font_7)
-        self.label_trade_type.setFont(font_7)
+        self.status.setFont(font_7)
+        self.trade_type.setFont(font_7)
         self.label_initial_price_name.setFont(font_7)
-        self.label_initial_price.setFont(font_9)
+        self.initial_price.setFont(font_9)
         self.label_cadastral_number_name.setFont(font_7)
-        self.label_cadastral_number.setFont(font_9)
+        self.cadastral_number.setFont(font_9)
         self.label_closing_date_name.setFont(font_7)
-        self.label_closing_date.setFont(font_9)
+        self.closing_date.setFont(font_9)
 
     def mouseReleaseEvent(self, e):
         self.signal_mouse.emit()
@@ -121,8 +159,8 @@ class WidgetOrder(QWidget):
 
 class WidgetFullOrder(WidgetOrder):
     """Предоставляет всю информацию о лоте и позволяет проводить с ним манипуляции"""
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dict_lot):
+        super().__init__(dict_lot)
         # Выбор статуса ордера
         set_status = QComboBox()
         set_status.addItems(['Новые', 'На согласование', 'В работе', 'Завершенные', 'Не участвуем', 'Архив'])
@@ -224,8 +262,13 @@ class WidgetFullOrder(WidgetOrder):
 
 
 if __name__ == '__main__':
+    import json
+    with open('dict_lot.json', 'r') as file:
+        dict_lot = json.load(file)
+
     app = QApplication([])
-    window = WidgetFullOrder()
+    window = WidgetFullOrder(dict_lot[5])
+    print(dict_lot[1])
     window.show()
     app.exec()
 

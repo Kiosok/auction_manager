@@ -52,4 +52,11 @@ metadata.create_all(engine)
 
 rows = session.query(MyTable).all()
 result = [row.as_dict() for row in rows]
-pprint(result)
+
+# Сохраняем список словарей
+import json
+
+path = 'G:/Documents/Python/game/auction_manager/UI/'
+
+with open(f'{path}dict_lot.json', 'w') as f:
+    json.dump(result, f)

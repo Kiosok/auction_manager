@@ -24,13 +24,13 @@ class MainWindow(QMainWindow):
         widget_small_orders = QWidget()
         vbox = QVBoxLayout()
 
-        small_order = WidgetOrder()
-        small_order_1 = WidgetOrder()
-        small_order_2 = WidgetOrder()
-
-        vbox.addWidget(small_order)
-        vbox.addWidget(small_order_1)
-        vbox.addWidget(small_order_2)
+        # Создание виджетов
+        import json
+        with open('dict_lot.json', 'r') as file:
+            dict_lot = json.load(file)
+            for lot in dict_lot:
+                small_order = WidgetOrder(lot)
+                vbox.addWidget(small_order)
 
         widget_small_orders.setLayout(vbox)
 
@@ -67,7 +67,6 @@ class MainWindow(QMainWindow):
 
         # Сигнал с widget order. Исполняется после клика по нему.
         small_order.signal_mouse.connect(lambda: self.add_full_widget())
-        small_order_1.signal_mouse.connect(lambda: self.add_full_widget())
 
     def clear_layout(self, layout):
         """Очистка layout от всех виджетов """
